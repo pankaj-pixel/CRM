@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Delete Confirmation {% endblock %}
+
+{% block content %}
+<div class="mt-4 bg-gray-100 text-gray-900">
+
+    <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md mt-10">
+        <h1 class="text-3xl font-semibold text-center text-red-600">Confirm Delete</h1>
+        <p class="text-xl text-center mt-4">Are you sure you want to delete the lead: <span class="font-bold text-teal-600">{{ object }}</span>?</p>
+        
+        <form method="post" class="mt-6">
+            {% csrf_token %}
+            <div class="flex justify-center gap-4">
+                <button type="submit" class="bg-teal-400 text-white px-6 py-2 rounded-md hover:bg-teal-500 transition duration-200">Confirm</button>
+                <a href="{% url 'leads_list' %}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition duration-200">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

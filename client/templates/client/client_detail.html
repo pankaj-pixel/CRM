@@ -1,0 +1,89 @@
+{% extends 'core/base.html' %}
+{% block title %}client Details {% endblock %}
+
+
+{% block content %}
+<h1 class="py-4 px-6 mb-4 text-xl font-semibold text-gray-800" >Client Details</h1>
+
+<div class="py-4 px-6">
+    <h1 class="mb-4 text-xl font-semibold text-gray-800  transform">{{ client.Name }}</h1>
+
+    {% if client.description %}
+      <p class="font-semibold">Description</p>
+      {{ client.description }}
+    {% endif %}
+
+    <p class="font-semibold">created_at</p>
+    <p>{{ client.created_by  }}</p>
+
+    <p class="font-semibold">created_at</p>
+    <p>{{ client.created_at  }}</p>
+
+    <p class="font-semibold">modified_at</p>S
+    <p>{{ client.modified_at  }}</p>
+    
+    <hr class="my-4">
+
+    <a href="{% url 'client_edit' client.id %}" class="py-2 px-4  rounded-xl bg-teal-500 text-white">Edit</a>
+
+    <a href="{% url 'client_delete' client.id %}" class="py-2 px-4  rounded-xl bg-red-500 text-white">Delete</a>
+
+  
+    <hr class="my-4">
+
+    <h2 class="text-2xl">Comments</h2>
+
+    <div class="space-y-4">
+      {% for comment in comments  %}
+      <div class="bg-gray-100 p-6 rounded-xl">
+          <p><strong>{{ comment.created_by  }}</strong><strong> @ {{ comment.created_at }}</strong></p>
+          {{ comment.content }}
+      </div>
+      {% endfor %}
+    </div>
+
+    <form method="post" action="{%  url 'add-comment' client.id %}">
+        {% csrf_token  %}
+
+        {{ form.as_p }}
+
+      <button class="py-4 px-8 bg-teal-500 text-white rounded-xl">submit</button>
+    </form>
+
+
+    <hr class="my-4">
+
+    <h2 class="text-2xl">Files</h2>
+    
+    <div class="space-y-4">
+        {% for file in client.files.all %}
+        <div class="bg-gray-100 p-6 rounded-xl">
+            <p><strong>{{ file.created_by }}</strong><strong> @ {{ file.created_at }}</strong></p>
+            <p><strong>File:</strong> {{ file.file.name }}</p>
+            <a href="{{ file.files.url }}" class="text-teal-500 hover:text-teal-700">Download</a> 
+        </div>
+        {% endfor %}
+    </div>
+    <form method="post" action="{% url 'add-file' client.id  %}" enctype="multipart/form-data">
+      {% csrf_token  %}
+
+      {{ fileform.as_p }}
+
+      <button class="py-4 px-8 bg-teal-500 text-white rounded-xl">submit</button>
+    </form>
+
+
+
+
+
+
+
+     
+    <a href="{% url 'clients_list' %}" class=" inline-block font-semibold ">Back to Clients</a>
+
+    
+    
+
+</div>
+
+{% endblock %}

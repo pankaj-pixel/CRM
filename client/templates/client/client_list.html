@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Clients{% endblock %}
+
+
+{% block content %}
+<div class="py-4 px-6">
+    <h1 class="mb-4 text-xl font-semibold text-gray-800  transform">Clients</h1>    
+    <a href="{% url 'add_client' %}" class="mb-4 inline-block text-white py-3 px-6 bg-teal-600 rounded-xl">Create client</a>
+    <a href="{% url 'client_report' %}" class="mb-4 inline-block text-white py-3 px-6 bg-teal-400 rounded-xl">Export</a>
+    <div class="flex justify-between">
+        <p class="py-4 px-2 bg-gray-300 font-semibold w-full">Name</p>
+    </div>
+    {% if clients %}
+        {%  for client in clients %}
+        <div class="flex justify-between" >
+            <p class="py-4 px-2 w-full {% cycle 'bg-gray-100' '' %}">
+                <a href="{% url 'client_detail' client.id %}">{{ client.Name }}</a>
+            </p> 
+        </div>
+        {% endfor %}  
+    {% else %} 
+        <h2>There is no Client in List</h2>   
+    {% endif %}
+ 
+
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+- DONE virtual env install django create project
+- DONE Base Page /templates
+   - DONE create app for pages
+   - DONE create base templates
+   - DONE create front pages
+   - DONE create about pages
+
+# create a new app userProfile
+- DONE Authentication
+  - DONE create Datbase Model userProfile
+  - DONE signup
+  - For Login used In Django LoginViewClass
+  - when you login with LoginViewClass it will Redirect to accounts/profile/
+  - so add your own path after successfully Login
+  - settings.py add --> LOGIN_REDIRECT_URL ='/Dashboard',LOGIN ='login',LOGOUT_REDIRECT_URL ='index'
+  - DONE login
+  - DONE logout
+  
+# create a new app Dashboard
+- DONE simple Dashboard
+  - DONE create new leads
+     - DONE NEW Django app
+     - DONE Datbase Model
+     - DONE View/Form for lead
+     - DONE List out leads
+     - DONE view Detail Page for Lead
+    - DONE change and delete leads
+
+# create a new app client
+-  DONE convert Leads tp client
+- DONE show a list of clients
+- DONE show a Detail page of client
+-  DONE ADD client
+- DONE change and delete clients
+
+
+- Implement solutions for teams
+#  create a new app teams
+- DONE model for teams
+- DONE Create a new teams
+- DONE you need to be a member of team
+- DONE when you create a lead team must set
+- DONE when you create a client team must set
+- DONE If you'nt a member of a team , create one
+- DONE If you are owner make it possible to edit the team
+- DONE Create a New Model Plan in Teams as part of no of leads and client per Plan
+- DONE Limit No of Lead
+- DONE Limit No of  client
+
+-Refactoring
+  -NOT DONE  Install tailwind instead CDN 
+  -NOT DONE ADD name spaces to all the apps
+  - REplace Views with CLASS BASEd VIEW
+
+  - ADD COMMENTS ON LEAD
+    - Create New Model Comment in Leads
+
+- DONE upload files to leads and clients
+- DONE EXPORT INFORMATION (LEAD, CLIENTS) IN CSV
+   - Using Import CSV in views
+DONE - Replace Dispatch with logiinmixin  
+- Show Active Team in Menu
+
+- Implement a payment solution/Monthly recuuring payment
+- Deploy
