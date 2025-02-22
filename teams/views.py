@@ -1,9 +1,14 @@
 from django.shortcuts import render,get_list_or_404,redirect
 from django.shortcuts import render ,get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import Team
 from .forms import Teamsform
 from django.contrib import messages
 
+
+
+
+@login_required
 def edit_team(request,pk):
     team = get_object_or_404(Team,created_by=request.user,pk=pk)
 

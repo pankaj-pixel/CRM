@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,43 +7,48 @@
 
     <title>{% block title %}{% endblock %}</title>
   </head>
-  <body>
-    <nav class="py-4 flex justify-between px-6 bg-teal-500">
-        <a href="" class="text-white">CRM</a>
-        <div class="space-x-4">
-            
-            <a href="{% url 'about' %}" class="text-white">About</a>
-            
-            {% if request.user.is_authenticated %}
-           
-                <a href="{% url 'dashboard' %}" class="text-white py-3 px-6 bg-teal-600 rounded-xl">Dashboard</a>
-                <a href="{% url 'leads_list' %}" class="text-white py-3 px-6 bg-teal-600 rounded-xl">All Leads</a>
-                <a href="{% url 'clients_list' %}" class="text-white py-3 px-6 bg-teal-600 rounded-xl">Clients</a>
-                <a href="{% url 'myaccount' %}" class="text-white py-3 px-6 bg-teal-800 rounded-xl">My Account</a>
+  <body class="bg-gray-100">
 
-            {% else %}    
-              <a href="{% url 'login' %}" class="text-white py-3 px-6 bg-teal-600 rounded-xl">Log in</a>
-              <a href="{% url 'signup' %}" class="text-white py-3 px-6 bg-teal-300 rounded-xl">Sign up</a>
-            {% endif %}
+    <!-- Navbar -->
+    <nav class="py-4 px-6 bg-gradient-to-r from-teal-500 to-teal-700 shadow-lg rounded-b-3xl">
+      <div class="flex justify-between items-center">
+        <a href="" class="text-white text-2xl font-semibold">CRM</a>
+        <div class="space-x-6">
+          <!-- Navigation Links -->
+          <a href="{% url 'about' %}" class="text-white hover:text-teal-200 transition duration-300">About</a>
+
+          {% if request.user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" class="text-white py-3 px-6 bg-teal-600 rounded-lg hover:bg-teal-500 transition duration-300">Dashboard</a>
+            <a href="{% url 'leads_list' %}" class="text-white py-3 px-6 bg-teal-600 rounded-lg hover:bg-teal-500 transition duration-300">All Leads</a>
+            <a href="{% url 'clients_list' %}" class="text-white py-3 px-6 bg-teal-600 rounded-lg hover:bg-teal-500 transition duration-300">Clients</a>
+            <a href="{% url 'myaccount' %}" class="text-white py-3 px-6 bg-teal-800 rounded-lg hover:bg-teal-700 transition duration-300">My Account</a>
+          {% else %}
+            <a href="{% url 'login' %}" class="text-white py-3 px-6 bg-teal-600 rounded-lg hover:bg-teal-500 transition duration-300">Log in</a>
+            <a href="{% url 'signup' %}" class="text-white py-3 px-6 bg-teal-300 rounded-lg hover:bg-teal-400 transition duration-300">Sign up</a>
+          {% endif %}
         </div>
+      </div>
     </nav>
 
+    <!-- Flash Messages -->
     {% if messages %}
     <div class="py-6 px-6">
       {% for message in messages %}
-        <div class="py-4 py-6 bg-teal-200 rounded-xl">
+        <div class="py-4 px-6 mb-4 bg-teal-200 text-teal-900 rounded-lg shadow-md">
             {{ message }} 
         </div>
       {% endfor %}
     </div>
     {% endif %}
-    {% block content %}
 
+    <!-- Content Block -->
+    {% block content %}
     {% endblock %}
 
-
-    <footer class="py-8  text-center bg-gray-300">
+    <!-- Footer -->
+    <footer class="py-8 bg-gray-800 text-white text-center">
         <p class="text-xs">Copyright (c) 2024 - Vastra Emporio</p>
     </footer>
+
   </body>
 </html>

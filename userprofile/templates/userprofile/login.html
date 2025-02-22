@@ -1,14 +1,43 @@
-{% extends 'core/base.html '%}
+{% extends 'core/base.html' %}
+{% load static %}
 {% block title %}Log In{% endblock %}
 
-
 {% block content %}
-    <h1>Log In </h1>
-    <form  method="post" action=".">
-        {% csrf_token %}
+    <div class="min-h-screen flex items-center justify-center bg-gray-100 pt-12">
+        <div class="bg-white p-8 rounded-xl shadow-lg w-full sm:w-96">
+            <!-- Card Title with Icon -->
+            <div class="text-center mb-6">
+                <img src="{% static 'images/login.png' %}" alt="Login Icon" class="w-12 h-12 mx-auto mb-4">
+                <h1 class="text-3xl font-semibold text-gray-800">Log In</h1>
+            </div>
 
-        {{ form.as_p }}
-        <button class="py-4 px-8 bg-teal-500 text-white rounded-xl">submit</button>
-    </form>
+            <!-- Login Form -->
+            <form method="post" action=".">
+                {% csrf_token %}
 
+                <!-- Username Field -->
+                <div class="mb-6">
+                    {{ form.username.errors }}
+                    <label for="id_username" class="block text-gray-700 font-medium">Username</label>
+                    <div class="relative">
+                        {{ form.username }}
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="mb-6">
+                    {{ form.password.errors }}
+                    <label for="id_password" class="block text-gray-700 font-medium">Password</label>
+                    <div class="relative">
+                        {{ form.password }}
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full py-3 px-6 bg-teal-500 text-white font-semibold rounded-lg shadow-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 transition duration-300">
+                    Log In
+                </button>
+            </form>
+        </div>
+    </div>
 {% endblock %}

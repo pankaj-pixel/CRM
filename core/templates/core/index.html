@@ -1,7 +1,46 @@
 {% extends 'core/base.html' %}
 
-{% block title %} Vastra CRM{% endblock %}
+{% load static %}
+{% block title %}Vastra CRM{% endblock %}
 
 {% block content %}
-THIS iS HOME PAGE
+    <!-- Hero Section: Big Eye-Catching Image and Catchphrase -->
+    <section class="bg-teal-600 text-white py-20">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h1 class="text-4xl font-extrabold mb-4">Welcome to CRM</h1>
+            <p class="text-xl mb-8">Empowering your business with efficient customer relationship management. Track leads, manage opportunities, and grow your business effortlessly.</p>
+            <a href="#" class="bg-teal-800 text-white py-3 px-6 rounded-lg text-lg hover:bg-teal-700 transition duration-300">
+                Explore Features
+            </a>
+        </div>
+    </section>
+
+  
+    <!-- Testimonials Section: User Experiences -->
+    <section class="py-16 bg-teal-50">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">What Our Users Say</h2>
+            <div class="flex justify-center gap-12">
+                <div class="w-full sm:w-1/3 bg-white p-6 rounded-lg shadow-lg">
+                    <p class="text-lg text-gray-600 mb-4">"Vastra CRM helped us organize and manage our sales pipeline. It's a game-changer!"</p>
+                    <p class="font-semibold text-gray-800">John Doe, CEO of TechCo</p>
+                </div>
+                <div class="w-full sm:w-1/3 bg-white p-6 rounded-lg shadow-lg">
+                    <p class="text-lg text-gray-600 mb-4">"The user interface is intuitive and easy to use. Our sales team loves it!"</p>
+                    <p class="font-semibold text-gray-800">Jane Smith, Sales Manager at InnovateX</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section: Get Started -->
+    <section class="py-16 bg-teal-600 text-white text-center">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-semibold mb-6">Get Started with Vastra CRM Today!</h2>
+            <p class="text-xl mb-8">Start streamlining your business processes, improving sales, and growing your customer relationships with Vastra CRM.</p>
+            <a href="{% url 'signup' %}" class="bg-teal-800 py-3 px-6 rounded-lg text-lg hover:bg-teal-700 transition duration-300">
+                Sign Up Now
+            </a>
+        </div>
+    </section>
 {% endblock %}

@@ -2,32 +2,34 @@
 
 {% block title %}Leads{% endblock %}
 
-
 {% block content %}
-<div class="py-4 px-6">
-    <h1 class="mb-4 text-xl font-semibold text-gray-800  transform">Leads</h1>
+    <div class="py-8 px-6">
+        <h1 class="mb-6 text-3xl font-semibold text-gray-800">Leads</h1>
 
-    <a href="{% url 'add_lead' %}" class="mb-4 inline-block text-white py-3 px-6 bg-teal-600 rounded-xl">CreateLead</a>
-    <div class="flex justify-between">
-        <p class="py-4 px-2 bg-gray-300 font-semibold w-full">Name</p>
-        <p class="py-4 px-2 bg-gray-300 font-semibold w-full">Priority</p>
-        <p class="py-4 px-2 bg-gray-300 font-semibold w-full">Status</p>
-    </div>
+        <a href="{% url 'add_lead' %}" class="mb-6 inline-block text-white py-3 px-6 bg-teal-600 rounded-lg shadow-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-400 transition duration-300">
+            Create Lead
+        </a>
 
-    {% if object_list %}
-        {%  for lead in object_list  %}
-        <div class="flex justify-between" >
-            <p class="py-4 px-2 w-full {% cycle 'bg-gray-100' '' %}">
-                <a href="{% url 'lead_detail' lead.id %}">{{ lead.Name }}</a>
-            </p> 
-            <p class="py-4 px-2 w-full {% cycle 'bg-gray-100' '' %}">{{ lead.get_priority_display }}</p>
-            <p class="py-4 px-2 w-full {% cycle 'bg-gray-100' '' %}">{{ lead.status }}</p>
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="flex bg-gray-200 text-gray-700 font-semibold">
+                <p class="py-4 px-6 w-1/3">Name</p>
+                <p class="py-4 px-6 w-1/3">Priority</p>
+                <p class="py-4 px-6 w-1/3">Status</p>
+            </div>
+
+            {% if object_list %}
+                {% for lead in object_list %}
+                    <div class="flex items-center border-t border-gray-200">
+                        <p class="py-4 px-6 w-1/3 text-teal-600 hover:text-teal-800 transition duration-200">
+                            <a href="{% url 'lead_detail' lead.id %}">{{ lead.Name }}</a>
+                        </p>
+                        <p class="py-4 px-6 w-1/3">{{ lead.get_priority_display }}</p>
+                        <p class="py-4 px-6 w-1/3">{{ lead.status }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h2 class="text-center py-6 text-gray-500">There are no leads yet.</h2>
+            {% endif %}
         </div>
-        {% endfor %}  
-    {% else %} 
-        <h2>There is no lead</h2>   
-    {% endif %}
- 
-
-</div>
+    </div>
 {% endblock %}

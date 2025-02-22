@@ -1,27 +1,30 @@
 {% extends 'core/base.html' %}
-{% block title %}My account{% endblock %}
 
+{% block title %}My Account{% endblock %}
 
 {% block content %}
-<div class="py-6 px-6">
-    <h1 class="mb-6 text-xl">My Account</h1>
+<div class="py-8 px-8 bg-gradient-to-r from-teal-50 to-teal-100 min-h-screen">
+    <!-- Page Title -->
+    <h1 class="mb-6 text-3xl font-semibold text-gray-800">My Account</h1>
     
-    <p class="mb-2">
-        <strong>Username: </strong>{{ request.user}}
+    <!-- Account Details -->
+    <div class="bg-white shadow-lg rounded-xl p-6 mb-6">
+        <p class="mb-4 text-lg text-gray-700">
+            <strong>Username: </strong>{{ request.user }}
+        </p>
 
-    </p>
+        <p class="mb-4 text-lg text-gray-700">
+            <strong>Team: </strong>{{ team.Name }}
+        </p>
 
-    <p class="mb-2">
-        <strong>Team: </strong>{{ team.Name }}
-    </p>
-
-    {% if team.created_by == request.user %}
-       <a href="{% url 'edit_team' team.id %}">Edit</a>
-
-    {% endif %}
+        {% if team.created_by == request.user %}
+        <!-- Edit Team Button -->
+        <a href="{% url 'edit_team' team.id %}" class="inline-block text-teal-700 py-2 px-4 bg-teal-200 rounded-xl hover:bg-teal-300 transition duration-300 mb-4">Edit Team</a>
+        {% endif %}
+    </div>
     
-    <hr class="mb-4">
-    <a href="{% url 'logout' %}" class="mb-6 text-white py-3 px-6 bg-red-500 rounded-xl">Log out</a>
+    <!-- Logout Button -->
+    <a href="{% url 'logout' %}" class="inline-block text-white py-3 px-6 bg-red-600 rounded-xl hover:bg-red-500 transition duration-300">Log out</a>
 
-</div>    
+</div>
 {% endblock %}

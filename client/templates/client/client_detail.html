@@ -1,89 +1,91 @@
 {% extends 'core/base.html' %}
-{% block title %}client Details {% endblock %}
 
+{% block title %}Client Details{% endblock %}
 
 {% block content %}
-<h1 class="py-4 px-6 mb-4 text-xl font-semibold text-gray-800" >Client Details</h1>
+<div class="py-8 px-8 bg-gradient-to-r from-teal-50 to-teal-100 min-h-screen">
+    <!-- Title -->
+    <h1 class="mb-6 text-3xl font-semibold text-gray-800">{{ client.Name }} - Client Details</h1>
 
-<div class="py-4 px-6">
-    <h1 class="mb-4 text-xl font-semibold text-gray-800  transform">{{ client.Name }}</h1>
+    <!-- Client Details Section -->
+    <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+        <p class="text-lg font-semibold text-gray-700">Description</p>
+        {% if client.description %}
+            <p class="mb-4">{{ client.description }}</p>
+        {% else %}
+            <p>No description available for this client.</p>
+        {% endif %}
 
-    {% if client.description %}
-      <p class="font-semibold">Description</p>
-      {{ client.description }}
-    {% endif %}
+        <div class="mt-4">
+            <p class="text-lg font-semibold text-gray-700">Created By</p>
+            <p class="mb-4">{{ client.created_by }}</p>
 
-    <p class="font-semibold">created_at</p>
-    <p>{{ client.created_by  }}</p>
+            <p class="text-lg font-semibold text-gray-700">Created At</p>
+            <p class="mb-4">{{ client.created_at }}</p>
 
-    <p class="font-semibold">created_at</p>
-    <p>{{ client.created_at  }}</p>
-
-    <p class="font-semibold">modified_at</p>S
-    <p>{{ client.modified_at  }}</p>
-    
-    <hr class="my-4">
-
-    <a href="{% url 'client_edit' client.id %}" class="py-2 px-4  rounded-xl bg-teal-500 text-white">Edit</a>
-
-    <a href="{% url 'client_delete' client.id %}" class="py-2 px-4  rounded-xl bg-red-500 text-white">Delete</a>
-
-  
-    <hr class="my-4">
-
-    <h2 class="text-2xl">Comments</h2>
-
-    <div class="space-y-4">
-      {% for comment in comments  %}
-      <div class="bg-gray-100 p-6 rounded-xl">
-          <p><strong>{{ comment.created_by  }}</strong><strong> @ {{ comment.created_at }}</strong></p>
-          {{ comment.content }}
-      </div>
-      {% endfor %}
-    </div>
-
-    <form method="post" action="{%  url 'add-comment' client.id %}">
-        {% csrf_token  %}
-
-        {{ form.as_p }}
-
-      <button class="py-4 px-8 bg-teal-500 text-white rounded-xl">submit</button>
-    </form>
-
-
-    <hr class="my-4">
-
-    <h2 class="text-2xl">Files</h2>
-    
-    <div class="space-y-4">
-        {% for file in client.files.all %}
-        <div class="bg-gray-100 p-6 rounded-xl">
-            <p><strong>{{ file.created_by }}</strong><strong> @ {{ file.created_at }}</strong></p>
-            <p><strong>File:</strong> {{ file.file.name }}</p>
-            <a href="{{ file.files.url }}" class="text-teal-500 hover:text-teal-700">Download</a> 
+            <p class="text-lg font-semibold text-gray-700">Modified At</p>
+            <p class="mb-4">{{ client.modified_at }}</p>
         </div>
-        {% endfor %}
+
+        <div class="flex space-x-4 mt-6">
+            <a href="{% url 'client_edit' client.id %}" class="inline-block py-2 px-4 bg-teal-500 text-white rounded-xl hover:bg-teal-400 transition duration-300">Edit</a>
+            <a href="{% url 'client_delete' client.id %}" class="inline-block py-2 px-4 bg-red-500 text-white rounded-xl hover:bg-red-400 transition duration-300">Delete</a>
+        </div>
     </div>
-    <form method="post" action="{% url 'add-file' client.id  %}" enctype="multipart/form-data">
-      {% csrf_token  %}
 
-      {{ fileform.as_p }}
+    <hr class="my-6 border-gray-300">
 
-      <button class="py-4 px-8 bg-teal-500 text-white rounded-xl">submit</button>
-    </form>
+    <!-- Comments Section -->
+    <div class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-800">Comments</h2>
 
+        <div class="space-y-6 mt-4">
+            {% for comment in comments %}
+            <div class="bg-gray-100 p-6 rounded-xl shadow-md">
+                <p class="text-sm text-gray-600"><strong>{{ comment.created_by }}</strong> @ {{ comment.created_at }}</p>
+                <p class="mt-2">{{ comment.content }}</p>
+            </div>
+            {% endfor %}
+        </div>
 
+        <form method="post" action="{% url 'add-comment' client.id %}" class="mt-6">
+            {% csrf_token %}
+            <div class="mb-4">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="py-3 px-6 bg-teal-500 text-white rounded-xl hover:bg-teal-400 transition duration-300">Submit Comment</button>
+        </form>
+    </div>
 
+    <hr class="my-6 border-gray-300">
 
+    <!-- Files Section -->
+    <div>
+        <h2 class="text-2xl font-semibold text-gray-800">Files</h2>
 
+        <div class="space-y-6 mt-4">
+            {% for file in client.files.all %}
+            <div class="bg-gray-100 p-6 rounded-xl shadow-md">
+                <p class="text-sm text-gray-600"><strong>{{ file.created_by }}</strong> @ {{ file.created_at }}</p>
+                <p class="mt-2"><strong>File:</strong> {{ file.file.name }}</p>
+                <a href="{{ file.file.url }}" class="text-teal-500 hover:text-teal-700">Download</a>
+            </div>
+            {% endfor %}
+        </div>
 
+        <form method="post" action="{% url 'add-file' client.id %}" enctype="multipart/form-data" class="mt-6">
+            {% csrf_token %}
+            <div class="mb-4">
+                {{ fileform.as_p }}
+            </div>
+            <button type="submit" class="py-3 px-6 bg-teal-500 text-white rounded-xl hover:bg-teal-400 transition duration-300">Upload File</button>
+        </form>
+    </div>
 
-     
-    <a href="{% url 'clients_list' %}" class=" inline-block font-semibold ">Back to Clients</a>
+    <hr class="my-6 border-gray-300">
 
-    
-    
+    <!-- Back Link -->
+    <a href="{% url 'clients_list' %}" class="inline-block font-semibold text-teal-500 hover:text-teal-700 mt-6">Back to Clients</a>
 
 </div>
-
 {% endblock %}
